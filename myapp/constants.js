@@ -1,0 +1,1 @@
+exports.CAPACITY_PER_SLOT = 2;
