@@ -5,6 +5,7 @@ Working hours are 09:00 AM to 05:00 PM on everyday.
 
 # Assumptions
 Used in memory database.
+Validations like duplicate VIN or duplicate email and phNo against DB are not performed to keep it simple.
 Have written unit test for very few files for complex logic.
 Integration tests are not covered.
 
@@ -60,6 +61,13 @@ curl --location --request POST 'http://localhost:3000/booking/' \
     },
     "bookingDateTime": "2021/05/21 15:00"
 }'
+
+```
+
+```
+Below End point will give you bookings made for a day along with slot information:
+
+curl --location --request GET 'http://localhost:3000/booking/2021-05-21'
 
 ```
 # Testing

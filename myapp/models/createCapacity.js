@@ -158,6 +158,12 @@ const model = {
     }
     return false;
   },
+  getBookingsByDate: async (dateMoment) => {
+    const YYYY = dateMoment.year();
+    const MM = dateMoment.month() + 1;
+    const DD = dateMoment.date();
+    return db[YYYY] && db[YYYY][MM] && db[YYYY][MM][DD];
+  },
 };
 
 // Disallow new properties on our object

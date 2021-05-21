@@ -8,8 +8,8 @@ exports.createBooking = async function (req, res) {
       error: `Please first create capacity then only booking will be accepted`,
     });
   }
-  const vehicle = req.body.vehicleDetails;
-  const user = req.body.userDetails;
+  const { vehicle } = req.body;
+  const { user } = req.body;
   const bookingDateTime = moment(req.body.bookingDateTime, "YYYY/MM/DD HH:mm");
   const bookingDateTimeEnd = moment(
     req.body.bookingDateTime,
