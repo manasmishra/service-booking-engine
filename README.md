@@ -8,6 +8,7 @@ Used in memory database.
 Validations like duplicate VIN or duplicate email and phNo against DB are not performed to keep it simple.
 Have written unit test for very few files for complex logic.
 Integration tests are not covered.
+I have not added any pre-push hook to check for linting errors or to run tests if required let me know.
 
 # Requirements
 * `npm`
@@ -72,7 +73,7 @@ curl --location --request GET 'http://localhost:3000/booking/2021-05-21'
 ```
 # Testing
 
-Tests can be run with `npm test`. .
+Tests can be run with `npm test`.
 
 All tests are colocated with their respective source files in `*.spec.js` files,
 using [Jest](https://facebook.github.io/jest/) with default settings.
@@ -80,5 +81,11 @@ I have only written for few files due to time constraint.
 
 You do not need to run the application separately to run any tests.
 
+
+# Linting
+
+Linting has been added to the code from popular linter airbnb and some customezations also made on top of it.
+
+To checking linting errors run `npm run lint` will show all errors and warning.
 # DB Design and model
 Refer volvo_ERDiagram.png to get a detailed idea of how DB will looks like with a little bit of advanced requirement for billing.
