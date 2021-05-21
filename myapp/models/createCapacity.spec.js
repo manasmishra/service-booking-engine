@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { model } = require("./createCapacity");
 
 describe("Booking Engine database", () => {
@@ -100,5 +101,46 @@ describe("Book Slot", () => {
       "2021/05/20 08:59"
     );
     expect(isBooked).toBe(false);
+  });
+});
+
+describe("Get Booked slots by date", () => {
+  it("Get all the bookins made for a day", async () => {
+    const dateMoment = moment("2021-05-20", "YYYY-MM-DD");
+    const bookings = await model.getBookingsByDate(dateMoment);
+    expect(bookings).toStrictEqual({
+      1: [
+        {
+          "12:0": {
+            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            user: { name: "manas", age: "32", ph: "9861965513" },
+            slotTime: "12:0",
+          },
+        },
+        {
+          "10:0": {
+            slotTime: "10:0",
+            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            user: { name: "manas", age: "32", ph: "9861965513" },
+          },
+        },
+        {
+          "14:0": {
+            slotTime: "14:0",
+            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            user: { name: "manas", age: "32", ph: "9861965513" },
+          },
+        },
+      ],
+      2: [
+        {
+          "12:0": {
+            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            user: { name: "manas", age: "32", ph: "9861965513" },
+            slotTime: "12:0",
+          },
+        },
+      ],
+    });
   });
 });

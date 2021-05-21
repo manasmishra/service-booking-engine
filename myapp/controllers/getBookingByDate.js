@@ -1,7 +1,7 @@
 const moment = require("moment");
 const { model } = require("../models/createCapacity");
 
-exports.getBookingByDate = async function (req, res) {
+exports.getBookingByDate = async function getBookingByDate(req, res) {
   const { date } = req.params;
   const dateMoment = moment(date, "YYYY-MM-DD");
   if (dateMoment.isValid()) {

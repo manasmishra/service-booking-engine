@@ -13,7 +13,7 @@ router.use(validationMiddleWare);
 
 router.post("/", validate({ body: capacitySchema }), createCapacity);
 
-router.get("/", async function (req, res) {
+router.get("/", async function getCapacity(req, res) {
   const capacity = await model.getCapacity();
   res.json({
     capacity,

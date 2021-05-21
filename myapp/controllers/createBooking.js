@@ -1,7 +1,7 @@
 const moment = require("moment");
 const { model } = require("../models/createCapacity");
 
-exports.createBooking = async function (req, res) {
+exports.createBooking = async function createBooking(req, res) {
   const capacity = await model.getCapacity();
   if (!capacity) {
     return res.status(412).json({

@@ -19,13 +19,14 @@ app.use("/capacity", capacityRouter);
 app.use("/booking", bookingRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function forwardToErrorHandler(req, res, next) {
   next(createError(404));
 });
 
 // error handler
 app.use((error, req, res) => {
   if (process.env.NODE_ENV !== "test") {
+    // eslint-disable-next-line no-console
     console.error({
       error,
       message: error.message || "Some error ocured",
