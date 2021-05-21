@@ -8,6 +8,8 @@ Used in memory database.
 Validations like duplicate VIN or duplicate email and phNo against DB are not performed to keep it simple.
 Have written unit test for very few files for complex logic.
 Integration tests are not covered.
+Cancellation of a booking is not covered.
+Change of booking date and time is not covered in this program. Just one time booking thats all.
 I have not added any pre-push hook to check for linting errors or to run tests if required let me know.
 
 # Requirements
@@ -67,9 +69,16 @@ curl --location --request POST 'http://localhost:3000/booking/' \
 
 ```
 Below End point will give you bookings made for a day along with slot information:
+url: http://localhost:3000/booking/:date
 
 curl --location --request GET 'http://localhost:3000/booking/2021-05-21'
 
+```
+```
+Get booking by vehicle VIN
+http://localhost:3000/booking/vin/:vin
+
+curl --location --request GET 'http://localhost:3000/booking/vin/vehicleHondaCityVin_1'
 ```
 # Testing
 

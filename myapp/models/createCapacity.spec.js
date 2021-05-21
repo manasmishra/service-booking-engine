@@ -40,7 +40,7 @@ describe("Book Slot", () => {
   it("When db is blank will create a slot if its within time range:", async () => {
     await model.resetCapacityToDefault();
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_1", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 12:00"
     );
@@ -48,7 +48,7 @@ describe("Book Slot", () => {
   });
   it("When db is blank will create a slot if its within time range:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_2", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 12:00"
     );
@@ -56,7 +56,7 @@ describe("Book Slot", () => {
   });
   it("When db is blank will create a slot if its within time range:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_3", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 12:00"
     );
@@ -64,7 +64,7 @@ describe("Book Slot", () => {
   });
   it("Should not book if the given date time is not before or after 2hr of any of slots present in DB:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_4", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 11:00"
     );
@@ -72,7 +72,7 @@ describe("Book Slot", () => {
   });
   it("Should not book if the given date time is not before or after 2hr of any of slots present in DB:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_5", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 10:00"
     );
@@ -80,7 +80,7 @@ describe("Book Slot", () => {
   });
   it("Should not book if the given date time is not before or after 2hr of any of slots present in DB:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_6", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 14:00"
     );
@@ -88,7 +88,7 @@ describe("Book Slot", () => {
   });
   it("Should not book if the booking is beyond working hours:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_7", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 16:00"
     );
@@ -96,7 +96,7 @@ describe("Book Slot", () => {
   });
   it("Should not book if the booking is before working hours:", async () => {
     const isBooked = await model.bookSlot(
-      { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+      { VIN: "vehicleVinHondaCity_8", make: "HONDA", model: "CITY" },
       { name: "manas", age: "32", ph: "9861965513" },
       "2021/05/20 08:59"
     );
@@ -108,11 +108,21 @@ describe("Get Booked slots by date", () => {
   it("Get all the bookins made for a day", async () => {
     const dateMoment = moment("2021-05-20", "YYYY-MM-DD");
     const bookings = await model.getBookingsByDate(dateMoment);
-    expect(bookings).toStrictEqual({
+    expect(bookings).toEqual({
       1: [
         {
           "12:0": {
-            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            vehicle: {
+              VIN: "vehicleVinHondaCity_1",
+              make: "HONDA",
+              model: "CITY",
+              slotPath: "2021.5.20.1.12:0",
+              user: {
+                age: "32",
+                name: "manas",
+                ph: "9861965513",
+              },
+            },
             user: { name: "manas", age: "32", ph: "9861965513" },
             slotTime: "12:0",
           },
@@ -120,14 +130,34 @@ describe("Get Booked slots by date", () => {
         {
           "10:0": {
             slotTime: "10:0",
-            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            vehicle: {
+              VIN: "vehicleVinHondaCity_5",
+              make: "HONDA",
+              model: "CITY",
+              slotPath: "2021.5.20.1.10:0",
+              user: {
+                age: "32",
+                name: "manas",
+                ph: "9861965513",
+              },
+            },
             user: { name: "manas", age: "32", ph: "9861965513" },
           },
         },
         {
           "14:0": {
             slotTime: "14:0",
-            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            vehicle: {
+              VIN: "vehicleVinHondaCity_6",
+              make: "HONDA",
+              model: "CITY",
+              slotPath: "2021.5.20.1.14:0",
+              user: {
+                age: "32",
+                name: "manas",
+                ph: "9861965513",
+              },
+            },
             user: { name: "manas", age: "32", ph: "9861965513" },
           },
         },
@@ -135,7 +165,17 @@ describe("Get Booked slots by date", () => {
       2: [
         {
           "12:0": {
-            vehicle: { VIN: "134q4iq3rjqefkjnw", make: "HONDA", model: "CITY" },
+            vehicle: {
+              VIN: "vehicleVinHondaCity_2",
+              make: "HONDA",
+              model: "CITY",
+              slotPath: "2021.5.20.2.12:0",
+              user: {
+                age: "32",
+                name: "manas",
+                ph: "9861965513",
+              },
+            },
             user: { name: "manas", age: "32", ph: "9861965513" },
             slotTime: "12:0",
           },

@@ -1,5 +1,7 @@
+/* eslint-disable no-await-in-loop */
 const moment = require("moment");
 const { CAPACITY_PER_SLOT } = require("../constants");
+const { vehicleModel } = require("./vehicle");
 
 // Define our state and initialize it
 const db = {};
@@ -82,6 +84,7 @@ const model = {
       2,
       "hours"
     );
+    const { VIN, make, model: vehicleCategory } = vehicle;
     const slotTime = `${HH}:${mm}`;
     const slotsByDD = getSlotForThatDD(YYYY, MM, DD);
     if (
@@ -95,10 +98,19 @@ const model = {
     ) {
       for (let i = 1; i <= capacityPerSlot; i += 1) {
         if (!slotsByDD[i]) {
+          const slotPath = `${YYYY}.${MM}.${DD}.${i}.${slotTime}`;
+          // eslint-disable-next-line no-await-in-loop
+          const vehicleObj = await vehicleModel.createVehicle(
+            VIN,
+            make,
+            vehicleCategory,
+            user,
+            slotPath
+          );
           slotsByDD[i] = [
             {
               [slotTime]: {
-                vehicle,
+                vehicle: vehicleObj,
                 user,
                 slotTime,
               },
@@ -128,10 +140,18 @@ const model = {
               (momentDateTime.isSameOrAfter(momentCurrSlotDateTimeEnd) &&
                 j === slots.length - 1)
             ) {
+              const slotPath = `${YYYY}.${MM}.${DD}.${i}.${slotTime}`;
+              const vehicleObj = await vehicleModel.createVehicle(
+                VIN,
+                make,
+                vehicleCategory,
+                user,
+                slotPath
+              );
               slots.splice(j + 1, 0, {
                 [slotTime]: {
                   slotTime,
-                  vehicle,
+                  vehicle: vehicleObj,
                   user,
                 },
               });
@@ -146,10 +166,18 @@ const model = {
           continue;
         }
         // insert req slot in start of slots array as no slots are booked yet
+        const slotPath = `${YYYY}.${MM}.${DD}.${i}.${slotTime}`;
+        const vehicleObj = await vehicleModel.createVehicle(
+          VIN,
+          make,
+          vehicleCategory,
+          user,
+          slotPath
+        );
         slots.push({
           [slotTime]: {
             slotTime,
-            vehicle,
+            vehicle: vehicleObj,
             user,
           },
         });
